@@ -1,0 +1,450 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.main{
+    /*width: 1024px;*/
+    margin: 0 auto;
+    background-color: white;
+   /* border: 1px dotted green;*/
+}
+
+.header{
+	display:inline-block;
+    /*float: left;*/
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 250%;
+	font-style: italic;
+    color: Purple;
+	background-color: white;
+   /* border: 1px dotted red;*/
+}
+
+.menu{
+	font-weight: bold;
+    font-size: 250%;
+	display:inline-block;
+    /*float: left;*/
+    width: 1071px;
+    /*border: 1px dotted red;*/
+}
+
+.content{
+	height: 645px;
+	/*background-image: url(images/kosmos.jpg);*/
+	background-color: white;
+	background-size: 100% 100%;
+	border: 1px solid black;
+	color: white;
+}
+
+.footer{
+	width: 1500px;
+	background: #333; /* Цвет фона */
+	padding: 5px; /* Поля вокруг текста */
+	margin-top: 659px;
+	color: #fff; /* Цвет текста */
+	clear: left; /* Отменяем действие float */
+	clear: right;
+	position: fixed;
+	bottom: 0
+}
+
+.catalog{
+	color: purple;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 80%;
+	padding: 15px;
+	width: 357px;
+	margin-right: -1%
+}
+
+.catalog:hover{
+	background-color: Gainsboro;
+}
+
+.basket{
+	color: purple;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 80%;
+	padding: 15px;
+	width: 357px;
+	margin-right: -1%;
+	/*background-image: url(images/basket1.jpg);
+	background-size: 100% 100%;*/
+}
+
+.basket:hover{
+	background-color: Gainsboro;
+}
+
+.user{
+	color: purple;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 80%;
+	padding: 15px;
+	width: 357px;
+}
+
+.user:hover{
+	background-color: Gainsboro;
+}
+
+.authtable{
+    /*border: 1px solid chocolate;*/
+	position: relative;
+    margin: auto;
+	color: purple;
+	margin-top: 7%;
+	/*background-image: url(images/apple2.jpg);
+	/*background-color: black;*/
+	background-size: 100% 100%;
+	height: 350px;
+	width: 350px;
+	border: 5px solid purple;
+}
+
+.tdhead{
+	position: absolute;
+	text-align: center;
+	font-size: 190%;
+	font-style: italic;
+	margin-left: 70px;
+	margin-top: 35px;
+}
+
+.tdlogin{
+	position: absolute;
+	text-align: center;
+	font-size: 20px;
+	width: 250px;
+	margin-left: 45px;
+	margin-top: 80px;
+}
+
+.tdpass{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 40px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.inputbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 5px;
+	font-size: 20px;
+	width: 250px;
+	background-color: salmon;
+	cursor: pointer;
+}
+
+.regbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -30px;
+	font-size: 20px;
+	width: 250px;
+	background-color: salmon;
+	cursor: pointer;
+}
+
+.error{
+	position: absolute;
+	color: red;
+	font-size: 15px;
+	margin-left: 55px;
+	margin-top: -30px;
+}
+
+.okey{
+	position: absolute;
+	color: green;
+	font-size: 15px;
+	margin-left: 55px;
+	margin-top: -30px;
+}
+
+.regtable{
+	/*border: 1px solid chocolate;*/
+	position: relative;
+    margin: auto;
+	color: purple;
+	margin-top: 7%;
+	/*background-image: url(images/apple2.jpg);
+	/*background-color: black;*/
+	background-size: 100% 100%;
+	height: 350px;
+	width: 350px;
+	border: 5px solid purple;
+}
+
+.tdheadreg{
+	position: absolute;
+	text-align: center;
+	font-size: 190%;
+	font-style: italic;
+	margin-left: 85px;
+	margin-top: 35px;
+}
+
+.tdname{
+	position: absolute;
+	text-align: center;
+	font-size: 20px;
+	width: 250px;
+	margin-left: 45px;
+	margin-top: 80px;
+}
+
+.tdloginreg{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 50px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.tdpasswordreg{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 21px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.tdreppassword{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -7px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.sendbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -30px;
+	font-size: 20px;
+	width: 250px;
+	background-color: salmon;
+	cursor: pointer;
+}
+
+.Iphone14{
+	display: inline-block;
+	position: relative;
+	/*margin: auto;*/
+	margin-left: 15%;
+	margin-top: 12%;
+	background-image: url(images/Iphone14.jpg);
+	height: 250px;
+	width: 275px;
+	background-size: 100% 75%;
+	background-repeat: no-repeat;
+}
+
+.applewatch{
+	display: inline-block;
+	position: relative;
+	/*margin: auto;*/
+	position: absolute;
+	margin-left: 3%;
+	margin-top: 12%;
+	background-image: url(images/applewatch.jpg);
+	height: 250px;
+	width: 275px;
+	background-size: 100% 75%;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.macbook{
+	display: inline-block;
+	/*position: relative;
+	/*margin: auto;*/
+	position: absolute;
+	margin-left: 25%;
+	margin-top: 12%;
+	background-image: url(images/macbook.jpg);
+	height: 250px;
+	width: 275px;
+	background-size: 100% 65%;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background: rgba(0, 0, 0, 0.5); /* Настройка цвета и прозрачности для блока с заголовком */
+  /*transition: background 0.5s ease;*/
+}
+
+.Iphone14:hover .overlay {
+	display: block;
+	background-color: Gainsboro;
+	opacity: 50%;  /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+}
+
+.applewatch:hover .overlay {
+	display: block;
+	background-color: Gainsboro;
+	opacity: 50%;  /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+}
+
+.macbook:hover .overlay {
+	display: block;
+	background-color: Gainsboro;
+	opacity: 50%;  /* Настройка цвета и прозрачности для блока с заголовком при наведении */
+}
+
+.title {
+  position: absolute;
+  bottom:0;
+  margin-left: 35%;
+  font-size: x-low; /* Размер текста заголовка */
+  text-align: center;
+  color: black; /* Цвет заголовка */
+  z-index: 1;
+  transition: top .5s ease;
+}
+
+.titlemac {
+  position: absolute;
+  bottom:0;
+  margin-left: 28%;
+  font-size: x-low; /* Размер текста заголовка */
+  text-align: center;
+  color: black; /* Цвет заголовка */
+  z-index: 1;
+  transition: top .5s ease;
+}
+
+
+
+.button {
+  position: absolute;
+  width: 100%;
+  left:0;
+  top: 40%; /* Отступ сверху */
+  text-align: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.button button {
+  padding: 15px 40px; /* Отступ */
+  text-align: center;
+  background: salmon; /* Цвет кнопки */
+  color: white; /* Цвет текста */
+  cursor: pointer;
+  border: 1px solid white; /* Ширина, стиль и цвет границы */
+  z-index: 1; 
+}
+
+.Iphone14:hover .button {
+  opacity: 1;
+}
+
+.applewatch:hover .button {
+  opacity: 1;
+}
+
+.macbook:hover .button {
+  opacity: 1;
+}
+
+.block{
+	position: relative;
+	height: 150px;
+	margin-top: 3%;
+	border: 1px solid salmon;
+}
+
+.imgip{
+	background-image: url(images/Iphone14.jpg);
+	background-size: 100% 100%;
+	position: absolute;
+	margin-left: 220px;
+	display:inline-block;
+	/*border: 1px solid chocolate;*/
+	height: 150px;
+	width: 200px;
+	
+}
+
+.imgwatch{
+	background-image: url(images/applewatch.jpg);
+	background-size: 100% 100%;
+	position: absolute;
+	margin-left: 220px;
+	display:inline-block;
+	/*border: 1px solid chocolate;*/
+	height: 150px;
+	width: 200px;
+}
+
+.imgmac{
+	background-image: url(images/macbook.jpg);
+	background-size: 100% 100%;
+	position: absolute;
+	margin-left: 210px;
+	display:inline-block;
+	/*border: 1px solid chocolate;*/
+	height: 145px;
+	width: 230px;
+}
+
+.product{
+	position: absolute;
+	margin-left: 450px;
+	display:inline-block;
+	color: black;
+	font-size: 35px;
+	/*border: 1px solid chocolate;*/
+	margin-top: 3%;
+}
+
+.price{
+	position: absolute;
+	margin-left: 800px;
+	display:inline-block;
+	color: black;
+	font-size: 35px;
+	margin-top: 3%;
+	/*border: 1px solid chocolate;*/
+}
+
+.buybtn{
+	position: absolute;
+	margin-left: 1000px;
+	display:inline-block;
+	color: black;
+	font-size: 35px;
+	margin-top: 3%;
+	background-color: salmon;
+	cursor: pointer;
+	/*border: 1px solid chocolate;*/
+}

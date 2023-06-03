@@ -1,0 +1,560 @@
+<?php
+	
+	namespace common;
+	require_once "DbHelper.php";
+	
+	abstract class Page
+	{
+		private $dbh;
+		protected $name = null;
+		private $login = null;
+		private $user = false;
+		private $reg = false;
+		private $catalog = true;
+		private $basket =  false;
+		private $error = 0;
+		
+		public function __construct(){
+			session_start();
+			$this->dbh = DbHelper::getInstance("localhost", 3306, "root", "");
+		}
+		
+		public function show(): void{
+			print "<html lang = 'ru'>";
+			print "<form method = 'post'>";
+			if(isset($_POST["user"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->user = true;
+				$this->catalog = false;
+				$this->basket = false;
+				$this->reg = false;
+			}
+			if(isset($_POST["catalog"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = true;
+				$this->user = false;
+				$this->basket = false;
+				$this->reg = false;
+			}
+			if(isset($_POST["basket"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = false;
+				$this->user = false;
+				$this->basket = true;
+				$this->reg = false;
+			}
+			if(isset($_POST["input"])){
+				$log = htmlspecialchars($_POST['auth_login']); 
+				$logins = $this->dbh->GetLogin();
+				$count = 0;
+				for ($i = 0; $i < count($logins); $i++){
+					if($logins[$i][0] == $log){
+						break;
+					}
+					else{
+						$count++;
+					}
+				}
+				if(count($logins) == $count){
+					$this->user = true;
+					$this->catalog = false;
+					$this->basket = false;
+					$this->reg = false;
+					$this->error = 1;
+				}
+				else{
+					$result_array = $this->dbh->GetPassword($_POST['auth_login']);
+					if(htmlspecialchars($_POST['auth_password']) != htmlspecialchars($result_array[1])){
+						$this->user = true;
+						$this->catalog = false;
+						$this->basket = false;
+						$this->reg = false;
+						$this->error = 1;
+					}
+					else{
+						$this->user = false;
+						$this->catalog = true;
+						$this->basket = false;
+						$this->reg = false;
+						$this->name = $result_array[2];
+						$this->login = $result_array[0];
+						$_SESSION['name'] = $this->name;
+						$_SESSION['login'] = $this->login;
+						$this->error = -1;
+					}
+				}
+			}
+			if(isset($_POST["reg"])){
+				$this->catalog = false;
+				$this->user = false;
+				$this->basket = false;
+				$this->reg = true;
+			}
+			if(isset($_POST["send"])){
+				$name = htmlspecialchars($_POST['name']);
+				$login = htmlspecialchars($_POST['reg_login']);
+				$password = htmlspecialchars($_POST['reg_password']);
+				$password2 = htmlspecialchars($_POST['reg_repeat_password']);
+				if (empty($_POST['reg_login']) || empty($_POST['reg_password']) || empty($_POST['reg_repeat_password']) || empty($_POST['name'])){
+					$this->catalog = false;
+					$this->user = false;
+					$this->basket = false;
+					$this->reg = true;
+					$this->error = 2;
+				}
+				else{
+					if ($password != $password2){
+						$this->catalog = false;
+						$this->user = false;
+						$this->basket = false;
+						$this->reg = true;
+						$this->error = 3;
+					}
+					else{
+						$checklog = $this->dbh->GetLogin();
+						$count = 0;
+						for ($i = 0; $i < count($checklog); $i++){
+							if($login == $checklog[$i][0]){
+								$this->catalog = false;
+								$this->user = false;
+								$this->basket = false;
+								$this->reg = true;
+								$this->error = 4;
+								break;
+							}
+							else{
+								$count++;
+							}
+						}
+						if($count == count($checklog)){
+							$this->dbh->saveUser($login, $password, $name);
+							$this->catalog = false;
+							$this->user = false;
+							$this->basket = false;
+							$this->reg = true;
+							$this->error = -1;
+						}
+					}
+				}
+			}
+			if(isset($_POST["Ip14basket"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = true;
+				$this->user = false;
+				$this->basket = false;
+				$this->reg = false;
+				$count = 0;
+				$array = $this->dbh->GetProduct();
+				for($i = 0; $i < count($array); $i++){
+					if($this->login == $array[$i][0] && $array[$i][1] == "Iphone14"){
+						break;
+					}
+					else{
+						$count++;
+					}
+				}
+				if($count == count($array)){
+					$this->dbh->InsertIntoBasket($this->login, 'Iphone14');
+				}
+				else{
+					
+				}
+			}
+			if(isset($_POST["watchbasket"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = true;
+				$this->user = false;
+				$this->basket = false;
+				$this->reg = false;
+				$count = 0;
+				$array = $this->dbh->GetProduct();
+				for($i = 0; $i < count($array); $i++){
+					if($this->login == $array[$i][0] && $array[$i][1] == "Applewatch"){
+						break;
+					}
+					else{
+						$count++;
+					}
+				}
+				if($count == count($array)){
+					$this->dbh->InsertIntoBasket($this->login, 'Applewatch');
+				}
+				else{
+					
+				}
+			}
+			if(isset($_POST["macbasket"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = true;
+				$this->user = false;
+				$this->basket = false;
+				$this->reg = false;
+				$count = 0;
+				$array = $this->dbh->GetProduct();
+				for($i = 0; $i < count($array); $i++){
+					if($this->login == $array[$i][0] && $array[$i][1] == "MacBook"){
+						break;
+					}
+					else{
+						$count++;
+					}
+				}
+				if($count == count($array)){
+					$this->dbh->InsertIntoBasket($this->login, 'MacBook');
+				}
+				else{
+					
+				}
+			}
+			if(isset($_POST["buyiphone"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = false;
+				$this->user = false;
+				$this->basket = true;
+				$this->reg = false;
+				$this->dbh->DeleteRow($this->login, 'Iphone14');
+				$this->dbh->UpdateCatalog('Iphone14');
+			}
+			if(isset($_POST["buywatch"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = false;
+				$this->user = false;
+				$this->basket = true;
+				$this->reg = false;
+				$this->dbh->DeleteRow($this->login, 'Applewatch');
+				$this->dbh->UpdateCatalog('Applewatch');
+			}
+			if(isset($_POST["buymac"])){
+				if(!empty($_SESSION['name'])){
+					$this->name = $_SESSION['name'];
+				}
+				if(!empty($_SESSION['login'])){
+					$this->login = $_SESSION['login'];
+				}
+				$this->catalog = false;
+				$this->user = false;
+				$this->basket = true;
+				$this->reg = false;
+				$this->dbh->DeleteRow($this->login, 'MacBook');
+				$this->dbh->UpdateCatalog('MacBook');
+			}
+			$this->CreateHeading();
+			$this->CreateBody();
+			print "</form>";
+			print "</html>";
+		}
+		
+		private function CreateHeading(){
+			?>
+			<head>
+				<link rel="stylesheet" type="text/css" href="css/Style.css">
+				<meta charset="utf-8"/>
+				
+				<?php
+				if($this->catalog){
+					?>
+					<title>Продукция Apple</title>
+					<?php
+				}
+				if($this->basket){
+					?>
+					<title>Корзина</title>
+					<?php
+				}
+				if($this->user){
+					if($this->name != null){
+						?>
+						<title><?php print($this->name);?></title>
+						<?php
+					}
+					else{
+						?>
+						<title>Вход в аккаунт</title>
+						<?php
+					}
+				}
+				else{
+					?>
+					<title>Paradise Iphone</title>
+					<?php
+				}
+				?>
+			</head>
+			<?php
+		}
+		
+		private function CreateBody(){
+			?>
+			<body>
+				<div class='main'>
+					<?php
+					$this->showHeader();
+					$this->showMenu();
+					?>
+					<div class='content'>
+						<?php
+						$this->showContent();
+						?>
+					</div>
+					<?php
+					$this->showFooter();
+					?>
+				</div>
+			</body>
+			<?php
+		}
+		
+		
+		private function showHeader(){
+			?>
+			<div class='header'>
+				Paradise iphone
+			</div>
+			<?php
+		}
+		
+		private function showMenu(){
+			?>
+			<div class='menu'>
+				<div>
+					<button name='catalog' class='catalog'>Продукция Apple</button>
+					<button name='basket' class='basket'>Корзина</button>
+					<?php
+						if($this->name != null){
+							?>
+							<button name='user' class='user'><?php print($this->name);?></button>
+							<?php
+						}
+						else{
+							?>
+							<button name='user' class='user'>Войти в аккаунт</button>
+							<?php
+						}
+					?>
+				</div>	
+			</div>
+			<?php
+		}
+		
+		private function showContent(){
+			
+			if($this->user){
+				$this->user_auth_Table();
+			}
+			if($this->reg){
+				$this->user_reg_Table();
+			}
+			if($this->catalog){
+				$this->catalog_Table();
+			}
+			if($this->basket){
+				$this->basket_Table();
+			}
+		}
+		
+		private function showFooter(){
+			print "<div class='footer'>";
+			print "<div>@Danil Farkhutdinov</div>";
+			print "</div>";
+		}
+
+		private function user_auth_Table(){
+			?>
+				<table class='authtable'>
+					<tr>
+						<td class="tdhead">Вход в аккаунт</td>
+					</tr>
+					<tr>
+						<td><input class="tdlogin" type="text" size="30" maxlength="50" name="auth_login" placeholder="Логин"; ></td>
+					</tr>
+					<tr>
+						<td><input  class="tdpass" type="password" size="30" maxlength="50" name="auth_password" placeholder="Пароль"> </td>
+					</tr>
+					<tr>
+						<td><button  class="inputbtn" name='input'>Войти</button></td>
+					</tr>
+					<tr>
+						<td><button  class="regbtn" name='reg'>Регистрация</button></td>
+					</tr>
+					<?php
+						if($this->error == 1){
+							?>
+							<tr>
+								<td class="error">Неверно введены логин или пароль</td>
+							</tr>
+							<?php
+						}
+						if($this->error == -1){
+							?>
+							<tr>
+								<td>Вход выполнен успешно!</td>
+							</tr>
+							<?php
+						}
+					?>
+				</table>
+				<?php
+		}
+		
+		private function user_reg_Table(){
+			?>
+			<table class="regtable">
+				<tr>
+					<td class="tdheadreg">Регистрация</td>
+				</tr>
+				<tr>
+					<td><input class="tdname" type="text" size="30" maxlength="50" name="name" placeholder="Имя"; ></td>
+				</tr>
+				<tr>
+					<td><input class="tdloginreg" type="text" size="30" maxlength="50" name="reg_login" placeholder="Логин"; ></td>
+				</tr>
+				<tr>
+					<td><input class="tdpasswordreg" type="password" size="30" maxlength="50" name="reg_password" placeholder="Пароль"; ></td>
+				</tr>
+				<tr>
+					<td><input class="tdreppassword" type="password" size="30" maxlength="50" name="reg_repeat_password" placeholder="Повтор пароля"; ></td>
+				</tr>
+				<tr>
+					<td><button class="sendbtn" name='send'>Зарегистрироваться</button></td>
+				</tr>
+				<?php
+					if($this->error == 2){
+						?>
+						<tr>
+							<td class="error">Заполните все поля формы</td>
+						</tr>
+						<?php
+					}
+					if($this->error == 3){
+						?>
+						<tr>
+							<td class="error">Пароли не совпадают</td>
+						</tr>
+						<?php
+					}
+					if($this->error == 4){
+						?>
+						<tr>
+							<td class="error">Пользователь с таким логином уже существует</td>
+						</tr>
+						<?php
+					}
+					if($this->error == -1){
+						?>
+						<tr>
+							<td class="okey">Регистрация прошла успешно!</td>
+						</tr>
+						<?php
+					}
+				?>
+			</table>
+			<?php
+		}
+		
+		private function catalog_Table(){
+			?>
+			<div class="Iphone14">
+				<h3 class="titlemac">Iphone 14 Pro Max<br> 175 990 ₽</h3>
+				<div class="overlay"></div>
+				<div class="button"><button name="Ip14basket">Добавить в корзину</button></div>
+			</div>
+			<div class="applewatch">
+				<h3 class="title">Apple Watch<br> 30 990 ₽</h3>
+				<div class="overlay"></div>
+				<div class="button"><button name="watchbasket">Добавить в корзину</button></div>
+			</div>
+			<div class="macbook">
+				<h3 class="titlemac">Apple MacBook<br> 267 990 ₽</h3>
+				<div class="overlay"></div>
+				<div class="button"><button name="macbasket">Добавить в корзину</button></div>
+			</div>
+			<?php
+		}
+		private function basket_Table(){
+			$array = $this->dbh->SelectProduct($this->login);
+			for($i = 0; $i < count($array); $i++){
+				if($array[$i][0] == 'Iphone14'){
+					$product = "Iphone 14 Pro Max";
+					$price = "175 990 ₽";
+					$btn = "Купить";
+					?>
+						<div class = "block">
+							<div class="imgip"></div>
+							<div class="product"><?php print($product); ?></div>
+							<div class="price"><?php print($price); ?></div>
+							<button class="buybtn" name = "buyiphone"><?php print($btn); ?></button>
+						</div>
+					<?php
+				}
+				if($array[$i][0] == 'Applewatch'){
+					$product = "Apple Watch";
+					$price = "30 990 ₽";
+					$btn = "Купить";
+					?>
+						<div class = "block">
+							<div class="imgwatch"></div>
+							<div class="product"><?php print($product); ?></div>
+							<div class="price"><?php print($price); ?></div>
+							<button class="buybtn" name = "buywatch"><?php print($btn); ?></button>
+						</div>
+					
+					<?php
+				}
+				if($array[$i][0] == 'MacBook'){
+					$product = "Apple MacBook";
+					$price = "267 990 ₽";
+					$btn = "Купить";
+					?>
+						<div class = "block">
+							<div class="imgmac"></div>
+							<div class="product"><?php print($product); ?></div>
+							<div class="price"><?php print($price); ?></div>
+							<button class="buybtn" name = "buymac"><?php print($btn); ?></button>
+						</div>
+					
+					<?php
+				}
+			}
+		}
+	}
+?>
