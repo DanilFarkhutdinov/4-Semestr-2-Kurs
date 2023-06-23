@@ -1,0 +1,110 @@
+<?php
+
+namespace common;
+require_once "DbHelper.php";
+
+abstract class Page
+{
+	public function __construct(){
+		session_start();
+        $this->dbh = DbHelper::getInstance("localhost", 3306, "root", "");
+		if($this->dbh->isSecure($this->getUrl())){
+			if(!isset($_SESSION['login'])){
+				$_SESSION['requested_page'] = $_SERVER['REQUEST_URI'];
+				header("Location: /exam/auth.php");
+			}
+		}
+		if(isset($_SESSION['login'])){
+			header("Location: /exam/secret.php");
+		}
+	}
+	
+	public function show(): void{
+		print "<html lang='ru'>";
+		$this->createHeading();
+		$this->createBody();
+		print "</html>";
+	}
+	
+	private function createHeading(){
+		?>
+		<head>
+			<link rel="stylesheet" type="text/css" href="css/main.css">
+			<meta charset="utf-8"/>
+			<title><?php print($this->getTitle());?></title>
+		</head>
+		<?php
+	}
+	
+	private function createBody(){
+		?>
+			<body>
+				<div class='main'>
+					<?php
+					$this->showHeader();
+					$this->showMenu();
+					?>
+					<div class='content'>
+						<?php
+						$this->showContent();
+						?>
+					</div>
+					<?php
+					$this->showFooter();
+					?>
+				</div>
+			</body>
+			<?php
+	}
+	
+	protected abstract function showContent();
+	
+	private function showHeader(){
+		?>
+		<div class='header'>
+			<?php print($this->getTitle()); ?>
+		</div>
+		<?php
+	}
+	
+	private function showMenu(){
+		?>
+		<div class='menu'>
+		<?php 
+		$dbh = new DbHelper("localhost", 3306, "root", "");
+		$pages_info = $dbh->getPagesInfo();
+		foreach ($pages_info as $index => $page_info){
+			$curr_page = ($page_info['url'] === $this->getUrl()) || ($page_info['alias'] === $this->getUrl());
+			print "<div class='menuitem'>";
+			if(!$curr_page){
+				print "<a class='l_menuitem' href='{$page_info['url']}'>";
+			}
+			print $page_info['name'];
+			if(!$curr_page) print "</a>";
+			print "</div>";
+		}
+		?>
+		</div>
+		<?php
+	}
+	
+	private function showFooter(){
+		print "<div class='footer'>";
+			if (isset($_SESSION['login'])){
+				print "<a class='exit' href='/exam/auth.php?exit=1'>Выйти из личного кабинета</a>";
+		}
+		print "<div>@Danil Farkhutdinov</div>";
+		print "</div>";
+	}
+	
+	private function getTitle(): string{
+		$dbh = new DbHelper("localhost", 3306, "root", "");
+		return $dbh->getTitle($this->getUrl());
+	}
+	
+	private function getUrl(): string{ //получить адрес страницы
+		return mb_split("/?/", $_SERVER['REQUEST_URI'], 1)[0]; //разделяет строку на части
+	}
+}
+
+?>

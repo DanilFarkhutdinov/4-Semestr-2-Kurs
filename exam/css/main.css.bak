@@ -1,0 +1,225 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.main{
+    /*width: 1024px;*/
+    margin: 0 auto;
+    background-color: white;
+   /* border: 1px dotted green;*/
+}
+
+.header{
+	position: relative;
+	display:inline-block;
+    /*float: left;*/
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 250%;
+	font-style: italic;
+    color: Purple;
+	background-color: white;
+    /*border: 1px dotted red;*/
+}
+
+.menu{
+	font-weight: bold;
+    font-size: 250%;
+	display:inline-block;
+    /*float: left;*/
+    width: 1071px;
+    /*border: 1px dotted red;*/
+}
+
+.content{
+	height: 645px;
+	margin-left:0%;
+	/*background-image: url(images/kosmos.jpg);*/
+	background-color: white;
+	/*background-size: 100% 100%;*/
+	border: 1px solid black;
+	color: black;
+}
+
+.footer{
+	width: 1500px;
+	background: #333; /* Цвет фона */
+	padding: 5px; /* Поля вокруг текста */
+	margin-top: 659px;
+	color: #fff; /* Цвет текста */
+	clear: left; /* Отменяем действие float */
+	clear: right;
+	position: fixed;
+	bottom: 0
+}
+
+.menuitem{
+	color: red;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 80%;
+	text-align: center;
+	padding: 15px;
+	width: 300px;
+	display:inline-block;
+	margin-right: -1%
+}
+
+.menuitem:hover{
+	background-color: Gainsboro;
+}
+
+.l_menuitem{
+	text-decoration: none;
+	color: purple;
+}
+
+.authtable{
+    /*border: 1px solid chocolate;*/
+	position: relative;
+    margin: auto;
+	color: purple;
+	margin-top: 7%;
+	/*background-image: url(images/apple2.jpg);
+	/*background-color: black;*/
+	background-size: 100% 100%;
+	height: 350px;
+	width: 350px;
+	border: 5px solid purple;
+}
+
+.tdhead{
+	position: absolute;
+	text-align: center;
+	font-size: 190%;
+	font-style: italic;
+	margin-left: 70px;
+	margin-top: 35px;
+}
+
+.tdlogin{
+	position: absolute;
+	text-align: center;
+	font-size: 20px;
+	width: 250px;
+	margin-left: 45px;
+	margin-top: 80px;
+}
+
+.tdpass{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 40px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.inputbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 5px;
+	font-size: 20px;
+	width: 250px;
+	background-color: salmon;
+	cursor: pointer;
+}
+
+.regbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -30px;
+	font-size: 20px;
+	width: 250px;
+	/*background-color: salmon;*/
+	cursor: pointer;
+	color: blue;
+}
+
+.error{
+	position: absolute;
+	color: red;
+	font-size: 15px;
+	margin-left: 55px;
+	margin-top: -30px;
+}
+
+.exit{
+	color: white;
+}
+
+.regtable{
+	/*border: 1px solid chocolate;*/
+	position: relative;
+    margin: auto;
+	color: purple;
+	margin-top: 7%;
+	/*background-image: url(images/apple2.jpg);
+	/*background-color: black;*/
+	background-size: 100% 100%;
+	height: 350px;
+	width: 350px;
+	border: 5px solid purple;
+}
+
+.tdheadreg{
+	position: absolute;
+	text-align: center;
+	font-size: 190%;
+	font-style: italic;
+	margin-left: 85px;
+	margin-top: 35px;
+}
+
+.tdname{
+	position: absolute;
+	text-align: center;
+	font-size: 20px;
+	width: 250px;
+	margin-left: 45px;
+	margin-top: 80px;
+}
+
+.tdloginreg{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 50px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.tdpasswordreg{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: 21px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.tdreppassword{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -7px;
+	font-size: 20px;
+	width: 250px;
+}
+
+.sendbtn{
+	position: absolute;
+	margin-left: 45px;
+	text-align: center;
+	margin-top: -30px;
+	font-size: 20px;
+	width: 250px;
+	background-color: salmon;
+	cursor: pointer;
+}
